@@ -18,23 +18,17 @@ func main() {
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
 	appUser := user{
-		firstName: userFirstName,
-		lastName:  userLastName,
-		birthdate: userBirthdate,
-		createdAt: time.Now(),
+		userFirstName,
+		userLastName,
+		userBirthdate,
+		time.Now(),
 	}
 
-	// appUser := new(user) // creates a pointer
-	// appUser.firstName = firstName
-	// appUser.lastName = lastName
-	// appUser.birthdate = birthdate
-	// appUser.createdAt = time.Now()
-
-	outputUserDetails(appUser)
+	outputUserDetails(&appUser)
 }
 
-func outputUserDetails(user user) {
-	fmt.Println(user.firstName, user.lastName, user.birthdate)
+func outputUserDetails(u *user) {
+	fmt.Println(u.firstName, u.lastName, u.birthdate)
 }
 
 func getUserData(promptText string) string {
