@@ -12,8 +12,8 @@ type user struct {
 	createdAt time.Time
 }
 
-func newUser(firstName, lastName, birthdate string) user {
-	return user{
+func newUser(firstName, lastName, birthdate string) *user {
+	return &user{
 		firstName,
 		lastName,
 		birthdate,
