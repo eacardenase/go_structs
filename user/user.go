@@ -32,8 +32,8 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 	}, nil
 }
 
-func NewAdmin(firstName, lastName, birthdate, email, password string) Admin {
-	return Admin{
+func NewAdmin(firstName, lastName, birthdate, email, password string) *Admin {
+	return &Admin{
 		email,
 		password,
 		User{
