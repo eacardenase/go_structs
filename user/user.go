@@ -13,6 +13,12 @@ type User struct {
 	CreatedAt time.Time
 }
 
+type Admin struct {
+	email    string
+	password string
+	User
+}
+
 func New(firstName, lastName, birthdate string) (*User, error) {
 	if firstName == "" || lastName == "" || birthdate == "" {
 		return nil, errors.New("new user validation failed")
@@ -24,6 +30,19 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 		birthdate,
 		time.Now(),
 	}, nil
+}
+
+func NewAdmin(firstName, lastName, birthdate, email, password string) Admin {
+	return Admin{
+		email,
+		password,
+		User{
+			firstName,
+			lastName,
+			birthdate,
+			time.Now(),
+		},
+	}
 }
 
 func (u *User) OutputUserDetails() {
