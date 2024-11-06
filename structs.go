@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -12,13 +13,17 @@ type user struct {
 	createdAt time.Time
 }
 
-func newUser(firstName, lastName, birthdate string) *user {
+func newUser(firstName, lastName, birthdate string) (*user, error) {
+	if firstName == "" || lastName == "" || birthdate == "" {
+		return nil, errors.New("new user validation failed")
+	}
+
 	return &user{
 		firstName,
 		lastName,
 		birthdate,
 		time.Now(),
-	}
+	}, nil
 }
 
 func (u *user) outputUserDetails() {
@@ -35,7 +40,13 @@ func main() {
 	userLastName := getUserData("Please enter your last name: ")
 	userBirthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	appUser := newUser(userFirstName, userLastName, userBirthdate)
+	appUser, err := newUser(userFirstName, userLastName, userBirthdate)
+
+	if err != nil {
+		fmt.Println(err)
+
+		return
+	}
 
 	appUser.outputUserDetails()
 	appUser.clearUserName()
@@ -46,7 +57,7 @@ func getUserData(promptText string) string {
 	var value string
 
 	fmt.Print(promptText)
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 
 	return value
 }
